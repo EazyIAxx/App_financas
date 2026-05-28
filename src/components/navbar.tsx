@@ -9,6 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Separator } from '@/components/ui/separator'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
@@ -53,7 +54,7 @@ export function Navbar({ userEmail }: { userEmail: string }) {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex flex-col w-60 border-r bg-white h-screen sticky top-0 p-4 gap-4">
+      <aside className="hidden md:flex flex-col w-60 border-r bg-background h-screen sticky top-0 p-4 gap-4">
         <div className="flex items-center gap-2 px-3 py-2">
           <TrendingUp className="h-6 w-6 text-blue-600" />
           <span className="font-bold text-base">FinançasPro</span>
@@ -64,7 +65,10 @@ export function Navbar({ userEmail }: { userEmail: string }) {
         </div>
         <Separator />
         <div className="space-y-2">
-          <p className="text-xs text-muted-foreground px-3 truncate">{userEmail}</p>
+          <div className="flex items-center justify-between px-3">
+            <p className="text-xs text-muted-foreground truncate">{userEmail}</p>
+            <ThemeToggle />
+          </div>
           <Button
             variant="ghost"
             size="sm"
@@ -78,12 +82,14 @@ export function Navbar({ userEmail }: { userEmail: string }) {
       </aside>
 
       {/* Mobile topbar */}
-      <header className="md:hidden flex items-center justify-between px-4 h-14 border-b bg-white sticky top-0 z-50">
+      <header className="md:hidden flex items-center justify-between px-4 h-14 border-b bg-background sticky top-0 z-50">
         <div className="flex items-center gap-2">
           <TrendingUp className="h-5 w-5 text-blue-600" />
           <span className="font-bold">FinançasPro</span>
         </div>
-        <Sheet>
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <Sheet>
           <SheetTrigger className="inline-flex items-center justify-center rounded-md p-2 hover:bg-accent">
             <Menu className="h-5 w-5" />
           </SheetTrigger>
@@ -111,6 +117,7 @@ export function Navbar({ userEmail }: { userEmail: string }) {
             </div>
           </SheetContent>
         </Sheet>
+        </div>
       </header>
     </>
   )
