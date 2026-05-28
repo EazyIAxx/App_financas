@@ -37,7 +37,8 @@ export default async function DashboardPage({ searchParams }: PageProps) {
   const totalIncome = txs.filter((t) => t.type === 'income').reduce((s, t) => s + t.amount, 0)
   const totalExpense = txs.filter((t) => t.type === 'expense').reduce((s, t) => s + t.amount, 0)
   const balance = totalIncome - totalExpense
-  const chartData = buildCategoryChartData(txs)
+  const expenseChartData = buildCategoryChartData(txs, 'expense')
+  const incomeChartData = buildCategoryChartData(txs, 'income')
   const recent = txs.slice(0, 5)
   const monthLabel = MONTHS.find((m) => m.value === month)?.label ?? ''
 
@@ -60,9 +61,19 @@ export default async function DashboardPage({ searchParams }: PageProps) {
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <CategoryChart data={chartData} />
-        <RecentTransactions transactions={recent} />
+        <CategoryChart
+          data={expenseChartData}
+          title="Despesas por Categoria"
+          emptyMessage="Nenhuma despesa no período"
+        />
+        <CategoryChart
+          data={incomeChartData}
+          title="Receitas por Categoria"
+          emptyMessage="Nenhuma receita no período"
+        />
       </div>
+
+      <RecentTransactions transactions={recent} />
     </div>
   )
 }

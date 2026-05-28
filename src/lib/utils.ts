@@ -33,10 +33,13 @@ export const CATEGORY_COLORS: Record<Category, string> = {
   Outros: '#6b7280',
 }
 
-export function buildCategoryChartData(transactions: Transaction[]): CategoryData[] {
+export function buildCategoryChartData(
+  transactions: Transaction[],
+  type: 'expense' | 'income' = 'expense'
+): CategoryData[] {
   const map: Partial<Record<Category, number>> = {}
   for (const t of transactions) {
-    if (t.type === 'expense') {
+    if (t.type === type) {
       map[t.category] = (map[t.category] ?? 0) + t.amount
     }
   }

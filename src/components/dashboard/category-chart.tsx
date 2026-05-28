@@ -8,6 +8,8 @@ import { useTheme } from 'next-themes'
 
 interface CategoryChartProps {
   data: CategoryData[]
+  title: string
+  emptyMessage: string
 }
 
 function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<{ name: string; value: number; payload: CategoryData }> }) {
@@ -23,7 +25,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<
   return null
 }
 
-export function CategoryChart({ data }: CategoryChartProps) {
+export function CategoryChart({ data, title, emptyMessage }: CategoryChartProps) {
   const { theme } = useTheme()
   const legendColor = theme === 'dark' ? '#d1d5db' : '#374151'
 
@@ -31,10 +33,10 @@ export function CategoryChart({ data }: CategoryChartProps) {
     return (
       <Card>
         <CardHeader>
-          <CardTitle className="text-base">Despesas por Categoria</CardTitle>
+          <CardTitle className="text-base">{title}</CardTitle>
         </CardHeader>
         <CardContent className="flex items-center justify-center h-48 text-muted-foreground text-sm">
-          Nenhuma despesa no período
+          {emptyMessage}
         </CardContent>
       </Card>
     )
@@ -43,7 +45,7 @@ export function CategoryChart({ data }: CategoryChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">Despesas por Categoria</CardTitle>
+        <CardTitle className="text-base">{title}</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={280}>
