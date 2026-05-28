@@ -9,7 +9,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { Separator } from '@/components/ui/separator'
 import { createClient } from '@/lib/supabase/client'
 import { cn } from '@/lib/utils'
-import { ThemeToggle } from '@/components/theme-toggle'
+import { ThemeToggle, ThemeToggleIcon } from '@/components/theme-toggle'
 
 const navLinks = [
   { href: '/dashboard', label: 'Dashboard', icon: Home },
@@ -65,10 +65,8 @@ export function Navbar({ userEmail }: { userEmail: string }) {
         </div>
         <Separator />
         <div className="space-y-2">
-          <div className="flex items-center justify-between px-3">
-            <p className="text-xs text-muted-foreground truncate">{userEmail}</p>
-            <ThemeToggle />
-          </div>
+          <ThemeToggle />
+          <p className="text-xs text-muted-foreground px-1 truncate">{userEmail}</p>
           <Button
             variant="ghost"
             size="sm"
@@ -88,7 +86,7 @@ export function Navbar({ userEmail }: { userEmail: string }) {
           <span className="font-bold">FinançasPro</span>
         </div>
         <div className="flex items-center gap-1">
-          <ThemeToggle />
+          <ThemeToggleIcon />
           <Sheet>
           <SheetTrigger className="inline-flex items-center justify-center rounded-md p-2 hover:bg-accent">
             <Menu className="h-5 w-5" />
@@ -104,7 +102,8 @@ export function Navbar({ userEmail }: { userEmail: string }) {
             </div>
             <Separator />
             <div className="space-y-2">
-              <p className="text-xs text-muted-foreground px-3 truncate">{userEmail}</p>
+              <ThemeToggle />
+              <p className="text-xs text-muted-foreground px-1 truncate">{userEmail}</p>
               <Button
                 variant="ghost"
                 size="sm"

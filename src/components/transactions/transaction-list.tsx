@@ -61,10 +61,10 @@ export function TransactionList({ transactions, onRefresh }: TransactionListProp
   return (
     <>
       {/* Desktop table */}
-      <div className="hidden md:block rounded-lg border bg-white overflow-hidden">
+      <div className="hidden md:block rounded-lg border bg-card overflow-hidden">
         <Table>
           <TableHeader>
-            <TableRow className="bg-gray-50">
+            <TableRow className="bg-muted/50">
               <TableHead>Data</TableHead>
               <TableHead>Descrição</TableHead>
               <TableHead>Categoria</TableHead>
@@ -122,7 +122,7 @@ export function TransactionList({ transactions, onRefresh }: TransactionListProp
       {/* Mobile cards */}
       <div className="md:hidden space-y-3">
         {transactions.map((t) => (
-          <div key={t.id} className="bg-white rounded-lg border p-4">
+          <div key={t.id} className="bg-card rounded-lg border p-4">
             <div className="flex items-start justify-between">
               <div>
                 <p className="font-medium text-sm">{t.description}</p>

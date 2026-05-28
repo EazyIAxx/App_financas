@@ -1,9 +1,10 @@
 'use client'
 
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recharts'
+import { PieChart, Pie, Tooltip, ResponsiveContainer, Legend } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { CategoryData } from '@/lib/types'
 import { formatCurrency } from '@/lib/utils'
+import { useTheme } from 'next-themes'
 
 interface CategoryChartProps {
   data: CategoryData[]
@@ -13,7 +14,7 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<
   if (active && payload && payload.length) {
     const item = payload[0]
     return (
-      <div className="bg-white border rounded-lg shadow-lg p-3 text-sm">
+      <div className="bg-card border rounded-lg shadow-lg p-3 text-sm">
         <p className="font-semibold">{item.name}</p>
         <p className="text-muted-foreground">{formatCurrency(item.value)}</p>
       </div>
@@ -23,6 +24,9 @@ function CustomTooltip({ active, payload }: { active?: boolean; payload?: Array<
 }
 
 export function CategoryChart({ data }: CategoryChartProps) {
+  const { theme } = useTheme()
+  const legendColor = theme === 'dark' ? '#d1d5db' : '#374151'
+
   if (data.length === 0) {
     return (
       <Card>
@@ -45,7 +49,7 @@ export function CategoryChart({ data }: CategoryChartProps) {
         <ResponsiveContainer width="100%" height={280}>
           <PieChart>
             <Pie
-              data={data}
+              data={data.map((d) => ({ ...d, fill: d.color }))}
               cx="50%"
               cy="50%"
               innerRadius={60}
@@ -53,15 +57,11 @@ export function CategoryChart({ data }: CategoryChartProps) {
               paddingAngle={3}
               dataKey="value"
               nameKey="name"
-            >
-              {data.map((entry) => (
-                <Cell key={entry.name} fill={entry.color} />
-              ))}
-            </Pie>
+            />
             <Tooltip content={<CustomTooltip />} />
             <Legend
               formatter={(value) => (
-                <span className="text-xs text-gray-700">{value}</span>
+                <span className="text-xs" style={{ color: legendColor }}>{value}</span>
               )}
             />
           </PieChart>

@@ -25,7 +25,7 @@ export function DashboardPeriodFilter({ month, year }: { month: number; year: nu
   return (
     <div className="flex items-center gap-2">
       <Select value={String(month)} onValueChange={(v) => update('month', Number(v))}>
-        <SelectTrigger className="w-36 bg-white">
+        <SelectTrigger className="w-36">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
@@ -37,7 +37,7 @@ export function DashboardPeriodFilter({ month, year }: { month: number; year: nu
         </SelectContent>
       </Select>
       <Select value={String(year)} onValueChange={(v) => update('year', Number(v))}>
-        <SelectTrigger className="w-24 bg-white">
+        <SelectTrigger className="w-24">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>
